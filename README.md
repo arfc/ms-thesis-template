@@ -1,5 +1,9 @@
-# master-thesis-template
-This repo holds the template for UIUC master's thesis
+# ms-thesis-template
+This repo holds the template for UIUC master's thesis. 
+When you use this repository as a template, please name your repository
+something specific like `bae-ms-thesis` rather than something 
+generic like `ms-thesis`. While you will only have one MS thesis,
+the group will have dozens or hundreds over time.
 
 By Jin Whan Bae
 Edited version of the uiucthesis2014 Package/Class
