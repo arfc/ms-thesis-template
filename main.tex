@@ -17,6 +17,7 @@
 
 \usepackage[hyphens]{url}
 \usepackage{hyperref}
+\hypersetup{hidelinks}
 \usepackage{subfig}
 \usepackage{hhline}
 \usepackage{amsmath}
@@ -128,13 +129,21 @@ Acks.
 \chapter{Introduction}
 \input{introduction}
 
-\chapter*{Appendix}
-\input{appendix}
-
 \backmatter
 
 \bibliographystyle{apalike}
 \bibliography{bibliography}
+
+\newcommand\mainmatterWithoutReset
+ {\edef\temppagenumber{\arabic{page}}%
+  \mainmatter
+  \setcounter{page}{\temppagenumber}%
+ }
+\mainmatterWithoutReset
+
+\appendix
+\input{appendix}
+
 
 \end{document}
 \endinput
