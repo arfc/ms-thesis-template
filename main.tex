@@ -134,7 +134,14 @@ Acks.
 \bibliographystyle{apalike}
 \bibliography{bibliography}
 
-\chapter*{Appendix}
+\newcommand\mainmatterWithoutReset
+ {\edef\temppagenumber{\arabic{page}}%
+  \mainmatter
+  \setcounter{page}{\temppagenumber}%
+ }
+\mainmatterWithoutReset
+
+\appendix
 \input{appendix}
 
 
