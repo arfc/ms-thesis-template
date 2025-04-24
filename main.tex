@@ -1,12 +1,28 @@
-%% Package and Class "uiucthesis2014" for use with LaTeX2e.
-\documentclass[edeposit,fullpage]{uiucthesis2018}
+%% Package and Class "uiucthesis2021" for use with LaTeX2e.
+\documentclass[edeposit,fullpage]{uiucthesis2021}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[hyphens]{url}
+\usepackage[bookmarksdepth=3,linktoc=all,colorlinks=true,urlcolor=blue,linkcolor=blue,citecolor=blue]{hyperref}
+\usepackage[capitalize]{cleveref}
+\usepackage[style=ieee]{biblatex}
 
 
+% \usepackage{ruledchapters}  % example of compliant heading format, uncomment to use
 \usepackage[acronym,toc]{glossaries}
-\include{acros}
+\makeglossaries
+\include{acros}  
+\usepackage{xcolor}
+\renewcommand*{\glstextformat}[1]{\textcolor{black}{#1}} %disabling the blue color of glossaries
 
+\addbibresource{./bibliography.bib}
+\newcounter{counterforappendices}
 \usepackage{xspace}
 \usepackage{graphics}
+
 \newcommand{\Cycamore}{\textsc{Cycamore}\xspace}
 \newcommand{\Cyclus}{\textsc{Cyclus}\xspace}
 
@@ -15,12 +31,8 @@
 \usepackage{booktabs} % nice rules (thick lines) for tables
 \usepackage{microtype} % improves typography for PDF
 
-\usepackage[hyphens]{url}
-\usepackage{hyperref}
-\hypersetup{hidelinks}
 \usepackage{subfig}
 \usepackage{hhline}
-\usepackage{amsmath}
 \usepackage{color}
 \usepackage{multirow}
 \usepackage{siunitx}
@@ -28,8 +40,6 @@
     input-decimal-markers = .,input-ignore = {,},table-number-alignment = right,
     group-separator={,}, group-four-digits = true
 }
-\usepackage{fourier}
-\usepackage{booktabs}
 \newcommand\tab[1][1cm]{\hspace*{#1}}
 
 \usepackage{threeparttable, tablefootnote}
@@ -56,10 +66,7 @@
 \newcolumntype{s}{>{\hsize=.5\hsize}X}
 \newcolumntype{m}{>{\hsize=.75\hsize}X}
 
-\usepackage{cleveref}
 \usepackage{datatool}
-\usepackage[numbers]{natbib}
-\usepackage{notoccite}
 
 
 \usepackage{tikz}
@@ -74,18 +81,20 @@
 \tikzstyle{empty} =  [rectangle, rounded corners, minimum width=2.5cm, minimum height=0.7cm,text centered, draw=black, fill=white!30]
 \tikzstyle{arrow} = [thick,->,>=stealth]
 
-
-\title{Example Template}
+\begin{document}
+\title{Example Template \\
+        Guide}
 \author{Charles Bae}
 \department{Nuclear, Plasma, Radiological Engineering}
-\schools{B.S., University of Illinois - Urbana Champaign, 2017}
-\msthesis
-\advisor{Kathryn D. Huff}
-\degreeyear{2018}
-\committee{Assistant Professor Kathryn D. Huff, Adviser \\ Professor Segundo Lector }
+\concentration{Computational Science and Engineering} %remove concentration if you don't have it
+\msthesis %change it to \phdthesis to set the correct thesis type
+\degreeyear{2021}
+\committee{
+    Associate Professor Kathryn D. Huff, Chair\\
+    Title Firstname Lastname, Second Reader}
 
 
-\begin{document}
+
 \maketitle
 
 \frontmatter
@@ -97,9 +106,13 @@ Abstract.
 
 \end{abstract}
 
-\chapter*{Acknowledgments}
+\begin{dedication}
+To whomever you want.
+\end{dedication}
 
+\begin{acknowledgments}
 Acks.
+\end{acknowledgments}
 
 %% The thesis format requires the Table of Contents to come
 %% before any other major sections, all of these sections after
@@ -111,41 +124,65 @@ Acks.
 %% List of Figures
 %% List Symbols and/or Abbreviations
 %% etc.
+{
+    \hypersetup{linkcolor=black}
+    \tableofcontents
+    % the Graduate College doesn't recommend including lot or lof
+    \listoftables
+    \listoffigures
+}
 
-\tableofcontents
-\listoftables
-\listoffigures
 
-%% Create a List of Abbreviations. The left column
-%% is 1 inch wide and left-justified
 %\chapter{List of Abbreviations}
-%\printglossaries
-%% Create a List of Symbols. The left column
-%% is 0.7 inch wide and centered
+\printglossary[type=\acronymtype,title={List of Abbreviations},nonumberlist] %I formated this way, instead of manually adding the list.
+
+\chapter{List of Symbols}
+
+\begin{symbollist}[0.7in]
+\item[$\tau$] Time taken to drink one cup of coffee.
+\item[$\mu$g] Micrograms (of caffeine, generally).
+\end{symbollist}
 
 \pagebreak
+
 \mainmatter
+
+% input individual chapters files.
 
 \chapter{Introduction}
 \input{introduction}
 
+\chapter{Literature Review}
+\section{A section}
+%%equations must be numbered within chapters.
+
+\chapter{Conclusions}
+Conclusion.
+
+% per Graduate College preference, place the \appendix and the appendices content before the
+% bibliography (here) only if the appendices contain references.
+%
+% \chapter*{Appendix}
+% \input{appendix}
+
 \backmatter
 
-\bibliographystyle{apalike}
-\bibliography{bibliography}
+\printbibliography[heading=bibintoc,title={References}]
 
-\newcommand\mainmatterWithoutReset
- {\edef\temppagenumber{\arabic{page}}%
-  \mainmatter
-  \setcounter{page}{\temppagenumber}%
- }
-\mainmatterWithoutReset
+% the below lines are only needed if bibliography precedes appendices
+% uses https://tex.stackexchange.com/a/440212 to continue page numbering
+\clearpage
+\setcounter{counterforappendices}{\value{page}}
+\mainmatter
+\setcounter{page}{\value{counterforappendices}}
 
 \appendix
+\chapter{An appendix}
 \input{appendix}
 
 
 \end{document}
 \endinput
+
 %%
 %% End of file `thesis-ex.tex'.
